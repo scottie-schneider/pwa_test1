@@ -1,7 +1,7 @@
 // Note: we can read the signed cookie here because _document is only run on the server side 
 import NextDocument, { Head, Main, NextScript } from "next/document";
 
-import { ServerStyleSheet as StyledComponentSheets } from 'styled-components'
+import { ServerStyleSheet } from 'styled-components'
 
 class MyDocument extends NextDocument {
   static async getInitialProps(ctx) {
