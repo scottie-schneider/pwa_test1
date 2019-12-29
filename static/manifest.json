@@ -1,0 +1,18 @@
+{
+  "name": "PWA Test App",
+  "short_name": "Scottie Schneider",
+  "background_color": "#FFFFFF",
+  "theme_color": "#d31253",
+  "description": "PWA Test app",
+  "display": "standalone",
+  "start_url": "/",
+  "icons": [{
+    "src": "/static/icon512.png",
+    "type": "image/png",
+    "sizes": "512x512"
+  }, {
+    "src": "/static/icon192.png",
+    "type": "image/png",
+    "sizes": "192x192"
+  }]
+}
