@@ -1,21 +1,8 @@
-const withOffline = require("next-offline");
-const path = require('path');
+const withOffline = require('next-offline');
 
-module.exports = withOffline({
-  generateSw: false,
-  workboxOpts: {
-    swDest: "./service-worker.js",
-    swSrc: path.join(__dirname, "./service-worker/index.js"),
-    globPatterns: ['static/**/*'],
-    globDirectory: '.'
-  },
+const nextConfig = {
+  // next-offline options:
+  dontAutoRegisterSw: true, // since we want runtime registration
+};
 
-  webpack: config => {
-    // Fixes npm packages that depend on `fs` module
-    config.node = {
-      fs: 'empty'
-    }
-
-    return config
-  }
-});
+module.exports = withOffline(nextConfig);
