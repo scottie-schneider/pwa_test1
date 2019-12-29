@@ -1,41 +1,21 @@
-const withOffline = moduleExists('next-offline')
-  ? require('next-offline')
-  : {};
+const withOffline = require("next-offline");
+const path = require('path');
 
-const isDev = process.env.NODE_ENV !== 'production'
-
-const nextConfig = {
-  target: 'serverless',
+module.exports = withOffline({
+  generateSw: false,
   workboxOpts: {
-    swDest: 'static/service-worker.js',
-    runtimeCaching: [
-      {
-        urlPattern: /^https?.*/,
-        handler: 'NetworkFirst',
-        options: {
-          cacheName: 'https-calls',
-          networkTimeoutSeconds: 15,
-          expiration: {
-            maxEntries: 150,
-            maxAgeSeconds: 30 * 24 * 60 * 60
-          },
-          cacheableResponse: {
-            statuses: [0, 200]
-          }
-        }
-      }
-    ]
-  }
-};
+    swDest: "./service-worker.js",
+    swSrc: path.join(__dirname, "./service-worker/index.js"),
+    globPatterns: ['static/**/*'],
+    globDirectory: '.'
+  },
 
-module.exports = moduleExists('next-offline')
-  ? withOffline(nextConfig)
-  : nextConfig
+  webpack: config => {
+    // Fixes npm packages that depend on `fs` module
+    config.node = {
+      fs: 'empty'
+    }
 
-function moduleExists(name) {
-  try {
-    return require.resolve(name);
-  } catch (error) {
-    return false;
+    return config
   }
-}
+});
