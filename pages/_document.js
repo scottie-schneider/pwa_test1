@@ -1,4 +1,3 @@
-// Note: we can read the signed cookie here because _document is only run on the server side 
 import Document, { Head, Main, NextScript } from "next/document";
 
 import { ServerStyleSheet } from 'styled-components'
